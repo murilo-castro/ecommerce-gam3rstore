@@ -24,6 +24,25 @@ interface Product extends Priceable {
     specification: Specification;
 }
 
+interface CartItem {
+    product: Product;
+    quantity: number;
+}
+
+declare class Cart {
+    readonly items: CartItem[];
+    constructor(items?: CartItem[]);
+    addItem(product: Product): Cart;
+    removeItem(product: Product): Cart;
+    removeProduct(product: Product): Cart;
+    clean(): Cart;
+    get quantityItems(): number;
+    get totalValue(): number;
+    get valueTotalFull(): number;
+    private itemByProduct;
+    private changeQuantityItem;
+}
+
 declare const products: Product[];
 
 declare const MAX_NUMBER_INSTALLMENTS = 12;
@@ -42,8 +61,46 @@ declare class Calculateinstallment {
     private withTwoDecimal;
 }
 
+declare enum Status {
+    RECEIVED = "RECEBIDO"
+}
+
+declare enum PaymentMethod {
+    PIX = "PIX",
+    TICKET = "BOLETO",
+    CARD = "CARTAO"
+}
+
+interface OrderDelivery {
+    id: number;
+    name: string;
+    email: string;
+    cpf: string;
+    strete: string;
+    complement: string;
+    city: string;
+    state: string;
+}
+
+interface OrderItem {
+    id: number;
+    product: Product;
+    quantity: number;
+    unit_price: number;
+}
+
+interface Order {
+    id: number;
+    date: Date;
+    items: OrderItem[];
+    total_value: number;
+    status: Status;
+    payment_method: PaymentMethod;
+    delivery: OrderDelivery;
+}
+
 declare class Coin {
     static format(value: number, location?: string, coin?: string): string;
 }
 
-export { Calculateinstallment, Coin, type Installment, MAX_NUMBER_INSTALLMENTS, MONTHLY_INTEREST_RATE, type Priceable, type Product, type Specification, products };
+export { Calculateinstallment, Cart, type CartItem, Coin, type Installment, MAX_NUMBER_INSTALLMENTS, MONTHLY_INTEREST_RATE, type Order, type OrderDelivery, type OrderItem, PaymentMethod, type Priceable, type Product, type Specification, Status, products };
