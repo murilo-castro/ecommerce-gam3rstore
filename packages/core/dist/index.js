@@ -23,6 +23,7 @@ __export(src_exports, {
   Calculateinstallment: () => Calculateinstallment,
   Cart: () => Cart,
   Coin: () => Coin,
+  FilterProduct: () => FilterProduct,
   MAX_NUMBER_INSTALLMENTS: () => MAX_NUMBER_INSTALLMENTS,
   MONTHLY_INTEREST_RATE: () => MONTHLY_INTEREST_RATE,
   PaymentMethod: () => PaymentMethod,
@@ -73,7 +74,7 @@ var Cart = class _Cart {
   }
   changeQuantityItem(items, product, difference) {
     return items.map(
-      (i) => i.product.id === product.id ? { ...i, quatity: i.quantity + difference } : i
+      (i) => i.product.id === product.id ? { ...i, quantity: i.quantity + difference } : i
     ).filter((i) => i.quantity > 0);
   }
 };
@@ -820,6 +821,22 @@ var PaymentMethod = /* @__PURE__ */ ((PaymentMethod2) => {
   return PaymentMethod2;
 })(PaymentMethod || {});
 
+// src/product/FilterProduct.ts
+var FilterProduct = class {
+  execute(search, product) {
+    const words = search.toLowerCase().split(" ");
+    return product.filter((product2) => {
+      const text = `
+                ${product2.name}
+                ${product2.description}
+                ${Object.values(product2.specification).join(" ")}
+                ${product2.brand}
+            `.toLowerCase();
+      return words.every((palavra) => text.includes(palavra));
+    });
+  }
+};
+
 // src/utils/Coin.ts
 var Coin = class {
   static format(value, location = "pt-BR", coin = "BRL") {
@@ -834,6 +851,7 @@ var Coin = class {
   Calculateinstallment,
   Cart,
   Coin,
+  FilterProduct,
   MAX_NUMBER_INSTALLMENTS,
   MONTHLY_INTEREST_RATE,
   PaymentMethod,

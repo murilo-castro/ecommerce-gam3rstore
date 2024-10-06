@@ -1,14 +1,14 @@
-interface Specification {
-    emphasis: string;
-    [key_atribute: string]: string | number | boolean;
-}
-
 interface Priceable {
     base_price: number;
     sale_price: number;
     lowest_price: number;
     highest_price: number;
     average_price: number;
+}
+
+interface Specification {
+    emphasis: string;
+    [key_atribute: string]: string | number | boolean;
 }
 
 interface Product extends Priceable {
@@ -22,6 +22,10 @@ interface Product extends Priceable {
     review: string;
     tags: string[];
     specification: Specification;
+}
+
+declare class FilterProduct {
+    execute(search: string, product: Product[]): Product[];
 }
 
 interface CartItem {
@@ -103,4 +107,4 @@ declare class Coin {
     static format(value: number, location?: string, coin?: string): string;
 }
 
-export { Calculateinstallment, Cart, type CartItem, Coin, type Installment, MAX_NUMBER_INSTALLMENTS, MONTHLY_INTEREST_RATE, type Order, type OrderDelivery, type OrderItem, PaymentMethod, type Priceable, type Product, type Specification, Status, products };
+export { Calculateinstallment, Cart, type CartItem, Coin, FilterProduct, type Installment, MAX_NUMBER_INSTALLMENTS, MONTHLY_INTEREST_RATE, type Order, type OrderDelivery, type OrderItem, PaymentMethod, type Priceable, type Product, type Specification, Status, products };
