@@ -6,6 +6,7 @@ export default class Cart {
 
   addItem(product: Product): Cart {
     const item = this.itemByProduct(product);
+
     if (item) {
       return new Cart(this.changeQuantityItem(this.items, product, 1));
     } else {
@@ -15,6 +16,7 @@ export default class Cart {
 
   removeItem(product: Product) {
     const item = this.itemByProduct(product);
+
     if (!item) return this;
 
     return new Cart(this.changeQuantityItem(this.items, product, -1));
@@ -22,6 +24,7 @@ export default class Cart {
 
   removeProduct(product: Product) {
     const item = this.itemByProduct(product);
+
     if (!item) return this;
 
     return new Cart(
@@ -61,7 +64,7 @@ export default class Cart {
     return items
       .map((i) =>
         i.product.id === product.id
-          ? { ...i, quatity: i.quantity + difference }
+          ? { ...i, quantity: i.quantity + difference }
           : i
       )
       .filter((i) => i.quantity > 0);

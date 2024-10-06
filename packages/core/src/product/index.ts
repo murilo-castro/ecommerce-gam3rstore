@@ -3,4 +3,5 @@ import Specification from "./specifications";
 import Priceable from "./priceable";
 import Product from "./product";
 
-export type { FilterProduct, Specification, Priceable, Product };
+export { FilterProduct };
+export type { Specification, Priceable, Product };
