@@ -2,3 +2,4 @@ node_modules
 .turbo
 /apps/backend/node_modules
 /apps/frontend/node_modules
+/apps/mobile/node_modules
